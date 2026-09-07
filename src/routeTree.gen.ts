@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
+import { Route as AttentionRouteImport } from './routes/attention'
 import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as MaintenanceRouteImport } from './routes/maintenance'
 import { Route as OpenapiRouteImport } from './routes/openapi'
@@ -50,6 +51,11 @@ const AnalyticsRoute = AnalyticsRouteImport.update({
 const ArchitectureRoute = ArchitectureRouteImport.update({
   id: '/architecture',
   path: '/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AttentionRoute = AttentionRouteImport.update({
+  id: '/attention',
+  path: '/attention',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CopilotRoute = CopilotRouteImport.update({
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
+  '/attention': typeof AttentionRoute
   '/copilot': typeof CopilotRoute
   '/maintenance': typeof MaintenanceRoute
   '/openapi': typeof OpenapiRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
+  '/attention': typeof AttentionRoute
   '/copilot': typeof CopilotRoute
   '/maintenance': typeof MaintenanceRoute
   '/openapi': typeof OpenapiRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/alerts': typeof AlertsRoute
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
+  '/attention': typeof AttentionRoute
   '/copilot': typeof CopilotRoute
   '/maintenance': typeof MaintenanceRoute
   '/openapi': typeof OpenapiRoute
@@ -223,6 +232,7 @@ export interface FileRouteTypes {
     | '/alerts'
     | '/analytics'
     | '/architecture'
+    | '/attention'
     | '/copilot'
     | '/maintenance'
     | '/openapi'
@@ -247,6 +257,7 @@ export interface FileRouteTypes {
     | '/alerts'
     | '/analytics'
     | '/architecture'
+    | '/attention'
     | '/copilot'
     | '/maintenance'
     | '/openapi'
@@ -271,6 +282,7 @@ export interface FileRouteTypes {
     | '/alerts'
     | '/analytics'
     | '/architecture'
+    | '/attention'
     | '/copilot'
     | '/maintenance'
     | '/openapi'
@@ -296,6 +308,7 @@ export interface RootRouteChildren {
   AlertsRoute: typeof AlertsRoute
   AnalyticsRoute: typeof AnalyticsRoute
   ArchitectureRoute: typeof ArchitectureRoute
+  AttentionRoute: typeof AttentionRoute
   CopilotRoute: typeof CopilotRoute
   MaintenanceRoute: typeof MaintenanceRoute
   OpenapiRoute: typeof OpenapiRoute
@@ -343,6 +356,13 @@ declare module '@tanstack/react-router' {
       path: '/architecture'
       fullPath: '/architecture'
       preLoaderRoute: typeof ArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/attention': {
+      id: '/attention'
+      path: '/attention'
+      fullPath: '/attention'
+      preLoaderRoute: typeof AttentionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/copilot': {
@@ -490,6 +510,7 @@ const rootRouteChildren: RootRouteChildren = {
   AlertsRoute: AlertsRoute,
   AnalyticsRoute: AnalyticsRoute,
   ArchitectureRoute: ArchitectureRoute,
+  AttentionRoute: AttentionRoute,
   CopilotRoute: CopilotRoute,
   MaintenanceRoute: MaintenanceRoute,
   OpenapiRoute: OpenapiRoute,

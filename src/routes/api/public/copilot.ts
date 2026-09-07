@@ -144,7 +144,24 @@ export const Route = createFileRoute("/api/public/copilot")({
 
           const intent = detectIntent(question);
           const answer = handleIntent(intent, data);
-          return new Response(JSON.stringify({ answer }), { status: 200, headers: { "Content-Type": "application/json" } });
+          // Compute count using same vehicle attention criteria as the Attention page
+    const attentionVehicles = data.vehicles.filter(v => {
+      const lowFuel = v.latest?.fuelLevelPct !== undefined && v.latest.fuelLevelPct < 20;
+      const highTemp = v.latest?.engineTempC !== undefined && v.latest.engineTempC > 90;
+      const hasAlert = data.alerts.some(a => a.vehicleId === v.id && (a.severity === "CRITICAL" || a.severity === "WARNING"));
+      return lowFuel || highTemp || hasAlert;
+    });
+    const attentionCount = attentionVehicles.length;
+    const responsePayload = {
+      answer,
+      viewAllLink: "/attention",
+      count: attentionCount,
+    };
+
+    return new Response(JSON.stringify(responsePayload), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });;
         } catch (e) {
           console.error(e);
           return new Response(JSON.stringify({ error: "Server error" }), { status: 500, headers: { "Content-Type": "application/json" } });

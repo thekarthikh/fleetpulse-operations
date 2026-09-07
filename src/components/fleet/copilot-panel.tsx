@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Panel } from "@/components/fleet/ui";
+import { Link } from "@tanstack/react-router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -16,14 +17,14 @@ const suggested = [
 
 export function CopilotPanel() {
   const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState<string | null>(null);
+  const [response, setResponse] = useState<null | { answer: string; viewAllLink?: string; count?: number }>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const ask = async (q: string) => {
     setLoading(true);
     setError(null);
-    setAnswer(null);
+    setResponse(null);
     try {
       const res = await fetch("/api/public/copilot", {
         method: "POST",
@@ -35,7 +36,7 @@ export function CopilotPanel() {
         throw new Error(data.error || "Request failed");
       }
       const data = await res.json();
-      setAnswer(data.answer);
+      setResponse(data);
     } catch (e:any) {
       setError(e.message);
     } finally {
@@ -75,9 +76,16 @@ export function CopilotPanel() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      {answer && (
+      {response && (
         <div className="mt-2 p-2 bg-muted/30 rounded">
-          <p className="whitespace-pre-wrap">{answer}</p>
+          <p className="whitespace-pre-wrap">{response.answer}</p>
+          {response.viewAllLink && response.count !== undefined && (
+            <div className="mt-2">
+              <Link to={response.viewAllLink} className="text-primary underline">
+                View all {response.count} vehicles
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </Panel>
