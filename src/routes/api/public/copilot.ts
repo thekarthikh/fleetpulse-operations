@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { get } from "@/lib/fleet/client"; // reuse fetch helper
+import { computeAnalytics } from "@/lib/fleet/analytics";
+import { repo } from "@/lib/fleet/store";
 import type { DashboardPayload } from "@/lib/fleet/client";
 
 // Simple intent detection based on keywords
@@ -115,7 +116,32 @@ export const Route = createFileRoute("/api/public/copilot")({
           if (!question || typeof question !== "string") {
             return new Response(JSON.stringify({ error: "Missing 'question' in request body" }), { status: 400, headers: { "Content-Type": "application/json" } });
           }
-          const data = await get<DashboardPayload>("/dashboard");
+           // Build dashboard data directly to avoid server-side relative fetch
+ const vehiclesData = repo.vehicles().map(v => ({
+   id: v.id,
+   plate: v.plate,
+   make: v.make,
+   model: v.model,
+   depot: v.depot,
+   fuelType: v.fuelType,
+   status: v.status,
+   healthScore: v.healthScore,
+   driverName: repo.driver(v.driverId)?.name ?? "Unassigned",
+   lastSeenAt: v.lastSeenAt,
+   latest: v.latest,
+ }));
+ const data: DashboardPayload = {
+   analytics: computeAnalytics(),
+   vehicles: vehiclesData,
+   alerts: repo.allAlerts().slice(0, 40),
+   maintenance: repo
+     .maintenance()
+     .filter(m => m.status !== "COMPLETED")
+     .sort((a, b) => +new Date(a.dueDate) - +new Date(b.dueDate))
+     .slice(0, 10),
+   serverTime: new Date().toISOString(),
+ };
+
           const intent = detectIntent(question);
           const answer = handleIntent(intent, data);
           return new Response(JSON.stringify({ answer }), { status: 200, headers: { "Content-Type": "application/json" } });
