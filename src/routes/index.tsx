@@ -41,7 +41,9 @@ import {
   timeAgo,
   tooltipStyle,
 } from "@/components/fleet/ui";
-import { FleetMap } from "@/components/fleet/fleet-map";
+// Lazy load the map component on the client only
+import { lazy, Suspense } from "react";
+const FleetMap = lazy(() => import("@/components/fleet/fleet-map"));
 
 export const Route = createFileRoute("/")({
   head: () => ({
