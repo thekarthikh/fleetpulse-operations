@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { RequestHandler } from "@tanstack/react-router";
+
 import { get } from "@/lib/fleet/client"; // reuse fetch helper
 import type { DashboardPayload } from "@/lib/fleet/client";
 
@@ -107,29 +107,25 @@ function handleIntent(intent: string, data: DashboardPayload) {
 }
 
 export const Route = createFileRoute("/api/public/copilot")({
-  component: CopilotRoute,
+  server: {
+    handlers: {
+      POST: async ({ request }) => {
+        try {
+          const { question } = await request.json();
+          if (!question || typeof question !== "string") {
+            return new Response(JSON.stringify({ error: "Missing 'question' in request body" }), { status: 400, headers: { "Content-Type": "application/json" } });
+          }
+          const data = await get<DashboardPayload>("/dashboard");
+          const intent = detectIntent(question);
+          const answer = handleIntent(intent, data);
+          return new Response(JSON.stringify({ answer }), { status: 200, headers: { "Content-Type": "application/json" } });
+        } catch (e) {
+          console.error(e);
+          return new Response(JSON.stringify({ error: "Server error" }), { status: 500, headers: { "Content-Type": "application/json" } });
+        }
+      },
+    },
+  },
+  // No client‑side component needed
+  component: () => null,
 });
-
-function CopilotRoute() {
-  // Not rendered client‑side; loader provides the response.
-  return null;
-}
-
-export const loader = (async ({ request }) => {
-  if (request.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405 });
-  }
-  try {
-    const { question } = await request.json();
-    if (!question || typeof question !== "string") {
-      return new Response(JSON.stringify({ error: "Missing 'question' in request body" }), { status: 400 });
-    }
-    const data = await get<DashboardPayload>("/dashboard");
-    const intent = detectIntent(question);
-    const answer = handleIntent(intent, data);
-    return new Response(JSON.stringify({ answer }));
-  } catch (e) {
-    console.error(e);
-    return new Response(JSON.stringify({ error: "Server error" }), { status: 500 });
-  }
-}) satisfies RequestHandler;
