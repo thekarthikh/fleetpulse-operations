@@ -10,6 +10,7 @@ import {
   Radio,
   Truck,
   Wrench,
+  Bot,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useHealth, useSimulateTick } from "@/lib/fleet/client";
@@ -26,6 +27,7 @@ const NAV = [
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/architecture", label: "Architecture", icon: Network },
   { to: "/openapi", label: "OpenAPI", icon: Braces },
+  { to: "/copilot", label: "Fleet Copilot", icon: Bot },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
