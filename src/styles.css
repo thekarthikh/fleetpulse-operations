@@ -1,0 +1,213 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * FleetPulse design system — dark enterprise operations console.
+ * Palette: deep slate surfaces, cyan signal accent, amber/red status ramp.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-critical: var(--critical);
+  --color-critical-foreground: var(--critical-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-info: var(--info);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.18 0.017 250);
+  --foreground: oklch(0.95 0.008 240);
+  --surface: oklch(0.222 0.019 252);
+  --surface-2: oklch(0.262 0.021 253);
+  --card: oklch(0.222 0.019 252);
+  --card-foreground: oklch(0.95 0.008 240);
+  --popover: oklch(0.235 0.02 252);
+  --popover-foreground: oklch(0.95 0.008 240);
+  --primary: oklch(0.78 0.14 195);
+  --primary-foreground: oklch(0.18 0.03 220);
+  --secondary: oklch(0.28 0.022 253);
+  --secondary-foreground: oklch(0.93 0.008 240);
+  --muted: oklch(0.28 0.02 253);
+  --muted-foreground: oklch(0.68 0.018 250);
+  --accent: oklch(0.32 0.03 240);
+  --accent-foreground: oklch(0.96 0.008 240);
+  --destructive: oklch(0.62 0.2 20);
+  --destructive-foreground: oklch(0.98 0.005 240);
+  --critical: oklch(0.65 0.2 22);
+  --critical-foreground: oklch(0.16 0.02 240);
+  --warning: oklch(0.79 0.15 78);
+  --warning-foreground: oklch(0.18 0.02 240);
+  --success: oklch(0.76 0.16 158);
+  --success-foreground: oklch(0.17 0.02 240);
+  --info: oklch(0.72 0.11 240);
+  --border: oklch(0.31 0.02 252);
+  --input: oklch(0.31 0.02 252);
+  --ring: oklch(0.78 0.14 195);
+  --chart-1: oklch(0.78 0.14 195);
+  --chart-2: oklch(0.76 0.16 158);
+  --chart-3: oklch(0.79 0.15 78);
+  --chart-4: oklch(0.65 0.2 22);
+  --chart-5: oklch(0.68 0.13 285);
+  --sidebar: oklch(0.2 0.018 252);
+  --sidebar-foreground: oklch(0.9 0.01 240);
+  --sidebar-primary: oklch(0.78 0.14 195);
+  --sidebar-primary-foreground: oklch(0.18 0.03 220);
+  --sidebar-accent: oklch(0.27 0.022 253);
+  --sidebar-accent-foreground: oklch(0.96 0.008 240);
+  --sidebar-border: oklch(0.29 0.02 252);
+  --sidebar-ring: oklch(0.78 0.14 195);
+
+  --shadow-panel: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 18px 40px -24px oklch(0 0 0 / 70%);
+  --glow-primary: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent),
+    0 0 26px -8px color-mix(in oklab, var(--primary) 60%, transparent);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, color-mix(in oklab, var(--primary) 10%, transparent), transparent),
+      linear-gradient(to bottom, color-mix(in oklab, var(--surface) 60%, transparent), transparent 40%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+}
+
+@utility panel {
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(6px);
+}
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@utility grid-lines {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--border) 55%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility live-dot {
+  position: relative;
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--success);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    border: 1px solid var(--success);
+    animation: fp-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes fp-ping {
+  0% { transform: scale(0.7); opacity: 0.9; }
+  80%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes fp-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility rise {
+  animation: fp-rise 0.35s ease-out both;
+}
+
+/* Leaflet dark treatment */
+.leaflet-container {
+  background: oklch(0.18 0.017 250);
+  font-family: var(--font-sans);
+}
+.leaflet-tile {
+  filter: invert(1) hue-rotate(185deg) brightness(0.85) contrast(0.92) saturate(0.7);
+}
+.leaflet-control-attribution,
+.leaflet-bar a {
+  background: var(--surface) !important;
+  color: var(--muted-foreground) !important;
+  border-color: var(--border) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border-radius: var(--radius-md);
+}
