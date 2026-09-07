@@ -43,6 +43,7 @@ import {
 } from "@/components/fleet/ui";
 // Lazy load the map component on the client only
 import { lazy, Suspense } from "react";
+import { CopilotPanel } from "@/components/fleet/copilot-panel";
 const FleetMap = lazy(() => import("@/components/fleet/fleet-map").then((module) => ({ default: module.FleetMap })));
 
 export const Route = createFileRoute("/")({
@@ -411,6 +412,7 @@ function DashboardPage() {
           )}
         </div>
       </Panel>
+        <CopilotPanel />
     </>
   );
 }

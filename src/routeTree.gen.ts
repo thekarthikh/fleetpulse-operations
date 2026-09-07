@@ -21,6 +21,7 @@ import { Route as VehiclesIndexRouteImport } from './routes/vehicles.index'
 import { Route as VehiclesIdRouteImport } from './routes/vehicles.$id'
 import { Route as ApiPublicAlertsRouteImport } from './routes/api/public/alerts'
 import { Route as ApiPublicAnalyticsRouteImport } from './routes/api/public/analytics'
+import { Route as ApiPublicCopilotRouteImport } from './routes/api/public/copilot'
 import { Route as ApiPublicDashboardRouteImport } from './routes/api/public/dashboard'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicMaintenanceRouteImport } from './routes/api/public/maintenance'
@@ -90,6 +91,11 @@ const ApiPublicAnalyticsRoute = ApiPublicAnalyticsRouteImport.update({
   path: '/api/public/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCopilotRoute = ApiPublicCopilotRouteImport.update({
+  id: '/api/public/copilot',
+  path: '/api/public/copilot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDashboardRoute = ApiPublicDashboardRouteImport.update({
   id: '/api/public/dashboard',
   path: '/api/public/dashboard',
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/vehicles/': typeof VehiclesIndexRoute
   '/api/public/alerts': typeof ApiPublicAlertsRoute
   '/api/public/analytics': typeof ApiPublicAnalyticsRoute
+  '/api/public/copilot': typeof ApiPublicCopilotRoute
   '/api/public/dashboard': typeof ApiPublicDashboardRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/maintenance': typeof ApiPublicMaintenanceRoute
@@ -166,6 +173,7 @@ export interface FileRoutesByTo {
   '/vehicles': typeof VehiclesIndexRoute
   '/api/public/alerts': typeof ApiPublicAlertsRoute
   '/api/public/analytics': typeof ApiPublicAnalyticsRoute
+  '/api/public/copilot': typeof ApiPublicCopilotRoute
   '/api/public/dashboard': typeof ApiPublicDashboardRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/maintenance': typeof ApiPublicMaintenanceRoute
@@ -189,6 +197,7 @@ export interface FileRoutesById {
   '/vehicles/': typeof VehiclesIndexRoute
   '/api/public/alerts': typeof ApiPublicAlertsRoute
   '/api/public/analytics': typeof ApiPublicAnalyticsRoute
+  '/api/public/copilot': typeof ApiPublicCopilotRoute
   '/api/public/dashboard': typeof ApiPublicDashboardRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/maintenance': typeof ApiPublicMaintenanceRoute
@@ -213,6 +222,7 @@ export interface FileRouteTypes {
     | '/vehicles/'
     | '/api/public/alerts'
     | '/api/public/analytics'
+    | '/api/public/copilot'
     | '/api/public/dashboard'
     | '/api/public/health'
     | '/api/public/maintenance'
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/vehicles'
     | '/api/public/alerts'
     | '/api/public/analytics'
+    | '/api/public/copilot'
     | '/api/public/dashboard'
     | '/api/public/health'
     | '/api/public/maintenance'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/vehicles/'
     | '/api/public/alerts'
     | '/api/public/analytics'
+    | '/api/public/copilot'
     | '/api/public/dashboard'
     | '/api/public/health'
     | '/api/public/maintenance'
@@ -280,6 +292,7 @@ export interface RootRouteChildren {
   VehiclesIndexRoute: typeof VehiclesIndexRoute
   ApiPublicAlertsRoute: typeof ApiPublicAlertsRoute
   ApiPublicAnalyticsRoute: typeof ApiPublicAnalyticsRoute
+  ApiPublicCopilotRoute: typeof ApiPublicCopilotRoute
   ApiPublicDashboardRoute: typeof ApiPublicDashboardRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicMaintenanceRoute: typeof ApiPublicMaintenanceRoute
@@ -375,6 +388,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/copilot': {
+      id: '/api/public/copilot'
+      path: '/api/public/copilot'
+      fullPath: '/api/public/copilot'
+      preLoaderRoute: typeof ApiPublicCopilotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/dashboard': {
       id: '/api/public/dashboard'
       path: '/api/public/dashboard'
@@ -458,6 +478,7 @@ const rootRouteChildren: RootRouteChildren = {
   VehiclesIndexRoute: VehiclesIndexRoute,
   ApiPublicAlertsRoute: ApiPublicAlertsRoute,
   ApiPublicAnalyticsRoute: ApiPublicAnalyticsRoute,
+  ApiPublicCopilotRoute: ApiPublicCopilotRoute,
   ApiPublicDashboardRoute: ApiPublicDashboardRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicMaintenanceRoute: ApiPublicMaintenanceRoute,

@@ -13,7 +13,7 @@ export interface Page<T> {
   order: "asc" | "desc";
 }
 
-async function get<T>(path: string): Promise<T> {
+export async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`);
   if (!res.ok) throw new Error(`${res.status} ${res.statusText} on ${path}`);
   return (await res.json()) as T;
