@@ -43,7 +43,7 @@ import {
 } from "@/components/fleet/ui";
 // Lazy load the map component on the client only
 import { lazy, Suspense } from "react";
-const FleetMap = lazy(() => import("@/components/fleet/fleet-map"));
+const FleetMap = lazy(() => import("@/components/fleet/fleet-map").then((module) => ({ default: module.FleetMap })));
 
 export const Route = createFileRoute("/")({
   head: () => ({
